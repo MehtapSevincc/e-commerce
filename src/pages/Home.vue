@@ -1,12 +1,17 @@
 <template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold"></h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+  <ProductCard 
+  v-for="product in products"
+  :key="product.id"
+  :product="product" />
   </div>
 </template>
 
 <script setup>
 import {ref, onMounted } from 'vue';
 import { fetchProducts } from '../stores/product';
+import ProductCard from '../components/product/ProductCard.vue';
+
 const products =ref([])
 onMounted (async () => {
   products.value = await fetchProducts()
