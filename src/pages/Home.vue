@@ -5,4 +5,10 @@
 </template>
 
 <script setup>
+import {ref, onMounted } from 'vue';
+import { fetchProducts } from '../stores/product';
+const products =ref([])
+onMounted (async () => {
+  products.value = await fetchProducts()
+})
 </script>
