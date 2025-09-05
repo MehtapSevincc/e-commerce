@@ -2,6 +2,7 @@
   <div class="flex">
       <aside class="w-1/4 p-4 border-r">
 <Filter @update:sort="handleSearch"/>
+<Brands @update:brands="handleBrandFilter" />
 </aside>
     <main class ="w-3/4">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
@@ -49,36 +50,50 @@ import {ref,computed, onMounted } from 'vue';
 import { fetchProducts } from '../stores/product';
 import ProductCard from '../components/product/ProductCard.vue';
 import Filter from '../components/product/Filter.vue';
+import Brands from '../components/product/Brands.vue';
 
 const allProducts =ref([]);
 const currentPage =ref(1);
 const perPage =12;
+
 const sortOption =ref('');
+const selectedBrands=ref([]);
+
 function handleSearch(val){
   sortOption.value =val;
   currentPage.value =1;
 }
+function handleBrandFilter(val){
+  selectedBrands.value=val
+}
 
 onMounted (async () => {
   const data =await fetchProducts()
-    console.log('type of numPrice:', typeof data[0]?.numPrice);
   allProducts.value = data
 })
-const sortedProducts =computed (()=>{
- const productsCopy = allProducts.value.slice();
+
+const filteredProducts =computed (()=>{
+ let products =[...allProducts.value];
+
+ if(selectedBrands.value.length >0){
+  products= products.filter((product) =>
+  selectedBrands.value.includes(product.brand)
+);
+ }
+
  if(sortOption.value === 'price-asc') {
-  return productsCopy.sort((a,b)=>a.numPrice-b.numPrice);
+  return products.sort((a,b)=>a.numPrice-b.numPrice);
  }
   else if (sortOption.value === 'price-desc') {
-    return productsCopy.sort((a, b) => b.numPrice - a.numPrice);
+    return products.sort((a, b) => b.numPrice - a.numPrice);
   }
    else if (sortOption.value === 'newest') {
-    return productsCopy.sort((a, b) =>new Date(b.createdAt) - new Date(a.createdAt));
+    return products.sort((a, b) =>new Date(b.createdAt) - new Date(a.createdAt));
   }
    else if (sortOption.value === 'oldest') {
-    return productsCopy.sort((a, b) =>new Date(a.createdAt) - new Date(b.createdAt));
+    return products.sort((a, b) =>new Date(a.createdAt) - new Date(b.createdAt));
   }
-  return productsCopy;
+  return products;
 
 })
 
@@ -86,11 +101,11 @@ const sortedProducts =computed (()=>{
 const paginatedProducts= computed(()=>{
   const start =(currentPage.value-1)*perPage
   const end =start+perPage
-  return sortedProducts.value.slice(start,end)
+  return filteredProducts.value.slice(start,end)
 
 })
 const totalPages =computed(()=>{
-  return Math.ceil(sortedProducts.value.length /perPage) 
+  return Math.ceil(filteredProducts.value.length /perPage) 
 })
 function changePage(page){
   if (page >=1 && page <= totalPages.value){
