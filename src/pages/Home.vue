@@ -13,7 +13,10 @@ import { fetchProducts } from '../stores/product';
 import ProductCard from '../components/product/ProductCard.vue';
 
 const products =ref([])
+
 onMounted (async () => {
-  products.value = await fetchProducts()
+  const data =await fetchProducts()
+  console.log('Fetched products:',data)
+  products.value = data
 })
 </script>
