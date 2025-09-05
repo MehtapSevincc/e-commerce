@@ -1,5 +1,6 @@
 
 <template>
+     <router-link :to="{ name: 'Detail', params: { id: product.id } }" class="block">
   <Card>
     <img
       :src="product.image"
@@ -12,6 +13,7 @@
      <h2 class="text-xl font-bold">{{ product.name }}</h2>
     <p class="text-sm text-gray-600">{{ product.brand }}</p>
   </Card>
+  </router-link>
 </template>
 
 <script setup>
