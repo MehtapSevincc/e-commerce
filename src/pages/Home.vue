@@ -3,6 +3,11 @@
       <aside class="w-1/4 p-4 border-r">
 <Filter @update:sort="handleSearch"/>
 <Brands @update:brands="handleBrandFilter" />
+<Model 
+:selectedBrands="selectedBrands"
+:allProducts="allProducts"
+@update:models="(val)=>selectedModels.value=val"
+/>
 </aside>
     <main class ="w-3/4">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
@@ -51,6 +56,8 @@ import { fetchProducts } from '../stores/product';
 import ProductCard from '../components/product/ProductCard.vue';
 import Filter from '../components/product/Filter.vue';
 import Brands from '../components/product/Brands.vue';
+import Model from '../components/ui/Model.vue';
+import { fakeDatas } from '../data/data';
 
 const allProducts =ref([]);
 const currentPage =ref(1);
@@ -58,6 +65,8 @@ const perPage =12;
 
 const sortOption =ref('');
 const selectedBrands=ref([]);
+
+const selectedModels=ref([])
 
 function handleSearch(val){
   sortOption.value =val;
@@ -69,8 +78,8 @@ function handleBrandFilter(val){
 
 onMounted (async () => {
   const data =await fetchProducts()
-  allProducts.value = data
-})
+  allProducts.value = [...data,...fakeDatas];
+});
 
 const filteredProducts =computed (()=>{
  let products =[...allProducts.value];
@@ -96,6 +105,11 @@ const filteredProducts =computed (()=>{
   return products;
 
 })
+if(selectedModels.value.length >0){
+  products =products.filter((product)=>
+  selectedModels.value.includes(product.name)
+)
+}
 
 
 const paginatedProducts= computed(()=>{
