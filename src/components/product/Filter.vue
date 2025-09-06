@@ -3,11 +3,11 @@
     <div class="flex flex-col gap-2">
         <label class="flex items-center gap-2">
             <input type="radio"  name="sort" value="price-asc" v-model="localSortOption" />
-            Price:Low to High
+          Low to High
         </label>
         <label>
             <input type="radio" name="sort" value="price-desc" v-model="localSortOption" />
-            Price:High to Low
+           High to Low
         </label>
          <label class="flex items-center gap-2">
             <input type="radio"  name="sort" value="newest" v-model="localSortOption" />
@@ -15,7 +15,7 @@
         </label>
          <label class="flex items-center gap-2">
             <input type="radio" name="sort" value="oldest" v-model="localSortOption" />
-            Old to New
+           Old to New
         </label>
     </div>
     </div>

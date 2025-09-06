@@ -6,17 +6,17 @@
 <Model 
 :selectedBrands="selectedBrands"
 :allProducts="allProducts"
-@update:models="(val)=>selectedModels.value=val"
+:selectedModels="selectedModels"
+@update:models="(val)=>{ selectedModels.value =val ;currentPage.value =1;}"
 />
 </aside>
-    <main class ="w-3/4">
+    <main class ="w-2/4">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
   <ProductCard 
   v-for="product in paginatedProducts"
   :key="product.id"
   :product="product" />
   </div>
-
 
     <div class="flex justify-center mt-4 gap-2">
     <button 
@@ -47,6 +47,9 @@
   </div>
 
 </main>
+ <aside class="w-1/4 p-4 border-l">
+      <Cart />
+    </aside>
   </div>
 </template>
 
@@ -58,10 +61,11 @@ import Filter from '../components/product/Filter.vue';
 import Brands from '../components/product/Brands.vue';
 import Model from '../components/ui/Model.vue';
 import { fakeDatas } from '../data/data';
+import Cart from '../styles/Cart.vue';
 
 const allProducts =ref([]);
 const currentPage =ref(1);
-const perPage =12;
+const perPage =9;
 
 const sortOption =ref('');
 const selectedBrands=ref([]);
@@ -89,6 +93,11 @@ const filteredProducts =computed (()=>{
   selectedBrands.value.includes(product.brand)
 );
  }
+ if(selectedModels.value.length >0){
+  products =products.filter((product)=>
+  selectedModels.value.includes(product.model)
+)
+}
 
  if(sortOption.value === 'price-asc') {
   return products.sort((a,b)=>a.numPrice-b.numPrice);
@@ -103,14 +112,7 @@ const filteredProducts =computed (()=>{
     return products.sort((a, b) =>new Date(a.createdAt) - new Date(b.createdAt));
   }
   return products;
-
 })
-if(selectedModels.value.length >0){
-  products =products.filter((product)=>
-  selectedModels.value.includes(product.name)
-)
-}
-
 
 const paginatedProducts= computed(()=>{
   const start =(currentPage.value-1)*perPage
