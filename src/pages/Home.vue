@@ -1,4 +1,6 @@
 <template>
+   
+   
   <div class="flex">
       <aside class="w-1/4 p-4 border-r">
 <Filter @update:sort="handleSearch"/>
@@ -50,11 +52,13 @@
  <aside class="w-1/4 p-4 border-l">
       <Cart />
     </aside>
-  </div>
+ 
+   </div>
 </template>
 
 <script setup>
-import {ref,computed, onMounted } from 'vue';
+
+import {ref,computed, onMounted,defineProps } from 'vue';
 import { fetchProducts } from '../stores/product';
 import ProductCard from '../components/product/ProductCard.vue';
 import Filter from '../components/product/Filter.vue';
@@ -62,6 +66,10 @@ import Brands from '../components/product/Brands.vue';
 import Model from '../components/ui/Model.vue';
 import { fakeDatas } from '../data/data';
 import Cart from '../styles/Cart.vue';
+
+const props =defineProps({
+  searchQuery:String
+})
 
 const allProducts =ref([]);
 const currentPage =ref(1);
@@ -71,6 +79,13 @@ const sortOption =ref('');
 const selectedBrands=ref([]);
 
 const selectedModels=ref([])
+const searchQuery =ref('');
+
+function handleSearchQuery(val){
+  searchQuery.value=val.toLowerCase();
+  currentPage.value =1;
+}
+
 
 function handleSearch(val){
   sortOption.value =val;
@@ -96,7 +111,12 @@ const filteredProducts =computed (()=>{
  if(selectedModels.value.length >0){
   products =products.filter((product)=>
   selectedModels.value.includes(product.model)
-)
+);
+}
+if(props.searchQuery){
+  products=products.filter(product=>
+    product.name.toLowerCase().includes(props.searchQuery.toLocaleLowerCase())
+  );
 }
 
  if(sortOption.value === 'price-asc') {

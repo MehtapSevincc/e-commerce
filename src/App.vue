@@ -1,10 +1,14 @@
-<template>
-  <div id="app">
-    <Header />
-    <router-view />
+<template> 
+   <div>
+ <Header v-model="searchQuery" />
+    <router-view :search-query="searchQuery" />
   </div>
+  
 </template>
 
 <script setup>
-import Header from './components/layout/Header.vue'
+import {ref} from 'vue'
+import Header from './components/layout/Header.vue';
+
+const searchQuery = ref('');
 </script>
