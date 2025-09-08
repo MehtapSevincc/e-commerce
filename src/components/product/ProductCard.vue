@@ -4,7 +4,7 @@
    
     <h2 class="text-lg font-semibold mb-1">{{ product.title }}</h2>
 
-    <p class="text-slate-900 font-bold">{{ product.price }}₺</p>
+    <p class="text-slate-900 font-bold">{{ product.numPrice.toFixed(2) }}₺</p>
      <h2 class="text-xl font-bold">{{ product.name }}</h2>
    <button
         @click.stop.prevent="addToCart"
@@ -29,7 +29,7 @@ const props =defineProps({
 })
 const cart =useCartStore()
 function addToCart(){
-    const cleanPrice = Number(props.product.price.toString().replace(/[^\d]/g, ''))
+    const cleanPrice = props.product.numPrice
   cart.addToCart({ ...props.product, numPrice: cleanPrice })
 }
 </script>

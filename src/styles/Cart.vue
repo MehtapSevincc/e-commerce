@@ -9,7 +9,7 @@
        <div v-for="item in cart.items" :key="item.id" class="mb-3 border-b pb-2 flex items-center justify-between">
         <div>
 <p class="font-medium">{{ item.name }}</p>
-<p>{{ item.price * item.quantity }}₺</p>
+<p>{{ (item.numPrice * item.quantity).toFixed(2) }}₺</p>
 
 </div>
 <div class="flex items-center gap-2">

@@ -1,6 +1,4 @@
-<template>
-   
-   
+<template> 
   <div class="flex">
       <aside class="w-1/4 p-4 border-r">
 <Filter @update:sort="handleSearch"/>
@@ -49,8 +47,10 @@
   </div>
 
 </main>
- <aside class="w-1/4 p-4 border-l">
-      <Cart />
+
+    <aside class="p-4 border-1">
+     <Cart />
+     <Checkout :cart-items="cartItems"/>
     </aside>
  
    </div>
@@ -66,6 +66,10 @@ import Brands from '../components/product/Brands.vue';
 import Model from '../components/ui/Model.vue';
 import { fakeDatas } from '../data/data';
 import Cart from '../styles/Cart.vue';
+import Checkout from '../components/cart/Checkout.vue';
+import { useCartStore } from '../stores/cart';
+const cartStore =useCartStore()
+const cartItems= computed(()=>cartStore.items)
 
 const props =defineProps({
   searchQuery:String
@@ -97,7 +101,11 @@ function handleBrandFilter(val){
 
 onMounted (async () => {
   const data =await fetchProducts()
-  allProducts.value = [...data,...fakeDatas];
+  const combined =[...data,...fakeDatas].map(product => ({
+    ...product,
+    numPrice:parseFloat(product.price) || product.numPrice || 0,
+  }))
+  allProducts.value=combined;
 });
 
 const filteredProducts =computed (()=>{
