@@ -1,7 +1,7 @@
 <template>
  
 <div 
-class="models p-4 border rounded w-64 transition-opacity"
+class="models p-4 border rounded w-64 transition-opacity  bg-white"
  :class="{ 'opacity-50 pointer-events-none': !hasBrand }"
 >
 
@@ -38,7 +38,7 @@ class="models p-4 border rounded w-64 transition-opacity"
 </template>
 
 <script setup>
-import {ref,computed,watch} from 'vue'
+import {ref,computed,watch,isRef} from 'vue'
 
 const props=defineProps({
     selectedBrands:{
@@ -50,7 +50,7 @@ const props=defineProps({
         required:true,
     },
     selectedModels:{
-        type: Array,
+        type: [Array,Object],
         required:true,
     }
 });
@@ -80,8 +80,12 @@ const filteredModels =computed (()=>{
     model.toLowerCase().includes(search.value.toLocaleLowerCase())
 )
 })
-const localSelectedModels =ref([...props.selectedModels]);
-watch (()=> props.selectedModels,(newVal)=> {
+const initialModels = isRef(props.selectedModels)
+  ? [...props.selectedModels.value]
+  : [...props.selectedModels];
+
+const localSelectedModels =ref(initialModels);
+watch (()=>(isRef (props.selectedModels) ? props.selectedModels.value: props.selectedModels),(newVal)=> {
     localSelectedModels.value=[...newVal];
 })
 watch(localSelectedModels,(newVal)=>{

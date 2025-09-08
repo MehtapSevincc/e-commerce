@@ -5,7 +5,7 @@
         v-model="query"
         @input="onInput"
         placeholder="Search"
-        class="w-full px-4 py-2 mb-2 border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        class="w-full px-4 py-2 mb-2 border-gray-300 rounded-md text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-800"
         />
     </div>
 </template>

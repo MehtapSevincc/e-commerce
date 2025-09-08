@@ -1,5 +1,5 @@
 <template>
-    <div class="brands-filter p-4 border rounded w-64">
+    <div class="brands-filter p-4 border rounded w-64 bg-white">
     <input 
     type="text"
     v-model="search"

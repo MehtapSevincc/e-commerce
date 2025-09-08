@@ -1,8 +1,16 @@
 <template> 
-  <div class="flex">
+    <Header 
+    v-model="searchQuery"
+    @update:modelValue="handleSearchQuery"
+    :totalPrice="totalPrice"
+  />
+  <div class="flex bg-stone-200">
       <aside class="w-1/4 p-4 border-r">
+        <h2>Sort by</h2>
 <Filter @update:sort="handleSearch"/>
+   <h2>Brands</h2>
 <Brands @update:brands="handleBrandFilter" />
+<h2>Models</h2>
 <Model 
 :selectedBrands="selectedBrands"
 :allProducts="allProducts"
@@ -24,7 +32,7 @@
       :disabled="currentPage === 1"
       class="px-3 py-1 border rounded disabled:opacity-50"
     >
-      Prev
+      <
     </button>
 
     <button 
@@ -32,7 +40,7 @@
       :key="page" 
       @click="changePage(page)"
       class="px-3 py-1 border rounded"
-      :class="page === currentPage ? 'bg-sky-900 text-white' : ''"
+      :class="page === currentPage ? 'bg-stone-800 text-white' : ''"
     >
       {{ page }}
     </button>
@@ -42,23 +50,22 @@
       :disabled="currentPage === totalPages"
       class="px-3 py-1 border rounded disabled:opacity-50"
     >
-      Next
+      >
     </button>
   </div>
 
 </main>
-
-    <aside class="p-4 border-1">
-     <Cart />
+    <aside class=" p-4 border-l ">    
+     <Cart />  
      <Checkout :cart-items="cartItems"/>
+     <Favorites/>
     </aside>
- 
    </div>
 </template>
 
 <script setup>
 
-import {ref,computed, onMounted,defineProps } from 'vue';
+import {ref,computed, onMounted,defineProps, reactive } from 'vue';
 import { fetchProducts } from '../stores/product';
 import ProductCard from '../components/product/ProductCard.vue';
 import Filter from '../components/product/Filter.vue';
@@ -68,12 +75,16 @@ import { fakeDatas } from '../data/data';
 import Cart from '../styles/Cart.vue';
 import Checkout from '../components/cart/Checkout.vue';
 import { useCartStore } from '../stores/cart';
+import Header from '../components/layout/Header.vue'
+import Favorites from '../components/ui/Favorites.vue';
+
 const cartStore =useCartStore()
 const cartItems= computed(()=>cartStore.items)
-
-const props =defineProps({
-  searchQuery:String
+const totalPrice =computed(()=>{
+  return cartItems.value.reduce((acc,item)=>acc+(item.price*item.quantity),0);
 })
+
+const searchQuery = ref('')
 
 const allProducts =ref([]);
 const currentPage =ref(1);
@@ -83,13 +94,12 @@ const sortOption =ref('');
 const selectedBrands=ref([]);
 
 const selectedModels=ref([])
-const searchQuery =ref('');
+
 
 function handleSearchQuery(val){
   searchQuery.value=val.toLowerCase();
   currentPage.value =1;
 }
-
 
 function handleSearch(val){
   sortOption.value =val;
@@ -121,9 +131,9 @@ const filteredProducts =computed (()=>{
   selectedModels.value.includes(product.model)
 );
 }
-if(props.searchQuery){
+if(searchQuery.value){
   products=products.filter(product=>
-    product.name.toLowerCase().includes(props.searchQuery.toLocaleLowerCase())
+    product.name.toLowerCase().includes(searchQuery.value.toLocaleLowerCase())
   );
 }
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="cart border-l p-4 w-64">
-       <h2 class="text-xl font-bold mb-4">Cart</h2>
+    <div class="cart border-l p-4 w-64 bg-white ">
+      <h2 class="text-xl font-bold mb-4">Cart <i class="fa-solid fa-cart-shopping"></i></h2>
        <div v-if="cart.items.length===0" class="text-gray-500" >
         Cart is empty
        </div>

@@ -1,6 +1,6 @@
 <template>
-    <div class ="mt-4 p-4 border-t">
-        <h2 class ="text-lg font-semibold mb-2">Checkout</h2>
+    <div class ="mt-4 p-4 border-t bg-white">     
+        <h2 class ="text-lg font-semibold mb-2 ">Checkout</h2>
         <div v-if="cartItems.length >0">
             <p class="text-md">Total Price:<span class="font-bold">{{ formattedTotal }}</span></p>
         </div>

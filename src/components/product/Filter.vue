@@ -1,5 +1,5 @@
 <template>
-    <div class="filter p-4 border rounded w-64">
+    <div class="filter p-4 border rounded w-64 bg-white">
     <div class="flex flex-col gap-2">
         <label class="flex items-center gap-2">
             <input type="radio"  name="sort" value="price-asc" v-model="localSortOption" />
