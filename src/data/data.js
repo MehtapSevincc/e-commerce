@@ -1,4 +1,3 @@
-
 export const baseBrands = [
   {
     id: 0,
