@@ -102,7 +102,10 @@ watch(
   { immediate: true } 
 );
 
-watch(localSelectedModels, (newVal) => {
-  emit("update:models", newVal);
+watch(localSelectedModels, (newVal, oldVal) => {
+  if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+    emit("update:models", newVal);
+  }
 });
+
 </script>
