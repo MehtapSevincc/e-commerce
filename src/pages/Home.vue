@@ -24,12 +24,18 @@
       />
     </aside>
     <main class="w-2/4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+      <div class=" p-4">
+
+    <div v-if="filteredProducts.length===0" class="text-stone-800 text-lg font-semibold text-center py-10">    
+     Product not found
+    </div>
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <ProductCard
           v-for="product in paginatedProducts"
           :key="product.id"
           :product="product"
         />
+      </div>
       </div>
 
       <div class="flex justify-center mt-4 gap-2">
