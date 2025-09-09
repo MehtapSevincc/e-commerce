@@ -14,13 +14,8 @@
       <Model
         :selectedBrands="selectedBrands"
         :allProducts="allProducts"
-        :selectedModels="selectedModels"
-        @update:models="
-          (val) => {
-            selectedModels.value = val;
-            currentPage.value = 1;
-          }
-        "
+        :selectedModels="selectedModels" 
+        @update:models="updateModels "
       />
     </aside>
     <main class="w-2/4">
@@ -75,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, defineProps, reactive } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { fetchProducts } from "../stores/product";
 import ProductCard from "../components/product/ProductCard.vue";
 import Filter from "../components/product/Filter.vue";
@@ -107,6 +102,17 @@ const sortOption = ref("");
 const selectedBrands = ref([]);
 
 const selectedModels = ref([]);
+function updateModels(val) {
+  
+  if (Array.isArray(val)) {
+    selectedModels.value = val;
+  } else if (val == null) {
+    selectedModels.value = [];
+  } else {
+    selectedModels.value = [val];
+  }
+  currentPage.value = 1;
+}
 
 function handleSearchQuery(val) {
   searchQuery.value = val.toLowerCase();
@@ -140,7 +146,10 @@ const filteredProducts = computed(() => {
   }
   if (selectedModels.value.length > 0) {
     products = products.filter((product) =>
-      selectedModels.value.includes(product.model)
+      selectedModels.value.some(
+        (selectedModel)=>
+        selectedModel.trim().toLowerCase()===product.model?.trim().toLowerCase()
+      )
     );
   }
   if (searchQuery.value) {

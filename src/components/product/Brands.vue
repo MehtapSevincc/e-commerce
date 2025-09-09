@@ -53,7 +53,5 @@ const filteredBrands = computed(() => {
     brand.toLowerCase().includes(search.value.toLowerCase())
   );
 });
-watch(selectedBrands, (newVal) => {
-  emit("update:selected", newVal);
-});
+
 </script>

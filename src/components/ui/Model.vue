@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, isRef } from "vue";
+import { ref, computed, watch } from "vue";
 
 const props = defineProps({
   selectedBrands: {
@@ -80,20 +80,28 @@ const filteredModels = computed(() => {
     model.toLowerCase().includes(search.value.toLocaleLowerCase())
   );
 });
-const initialModels = isRef(props.selectedModels)
-  ? [...props.selectedModels.value]
-  : [...props.selectedModels];
+const initialModels = Array.isArray(props.selectedModels)
+  ? [...props.selectedModels]
+  : props.selectedModels
+  ? [props.selectedModels]
+  : [];
 
 const localSelectedModels = ref(initialModels);
+
 watch(
-  () =>
-    isRef(props.selectedModels)
-      ? props.selectedModels.value
-      : props.selectedModels,
+  () => props.selectedModels,
   (newVal) => {
-    localSelectedModels.value = [...newVal];
-  }
+    if (Array.isArray(newVal)) {
+      localSelectedModels.value = [...newVal];
+    } else if (newVal != null) {
+      localSelectedModels.value = [newVal];
+    } else {
+      localSelectedModels.value = [];
+    }
+  },
+  { immediate: true } 
 );
+
 watch(localSelectedModels, (newVal) => {
   emit("update:models", newVal);
 });
