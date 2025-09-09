@@ -5,7 +5,6 @@ import { ref, computed } from 'vue'
 export const useCartStore = defineStore('cart', () => {
   const items = ref([])
 
-
   function addToCart(product) {
     const existing = items.value.find(item => item.id === product.id)
     if (existing) {

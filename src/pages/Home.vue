@@ -5,7 +5,7 @@
     :totalPrice="totalPrice"
   />
   <div class="flex bg-stone-200">
-      <aside class="w-1/4 p-4 border-r">
+      <aside class="w-1/4 p-4 border-r ">
         <h2>Sort by</h2>
 <Filter @update:sort="handleSearch"/>
    <h2>Brands</h2>
@@ -30,11 +30,9 @@
     <button 
       @click="changePage(currentPage - 1)" 
       :disabled="currentPage === 1"
-      class="px-3 py-1 border rounded disabled:opacity-50"
-    >
-      <
+      class="px-3 py-1 border rounded disabled:opacity-50">
     </button>
-
+    
     <button 
       v-for="page in totalPages" 
       :key="page" 

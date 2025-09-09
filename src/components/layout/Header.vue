@@ -9,8 +9,7 @@
        Mehtap Sevinç
          </h2>
     </header>
-</template>
- 
+</template> 
 <script setup>
 import {ref,watch,computed} from 'vue'
 import SearchBar from '../ui/SearchBar.vue'

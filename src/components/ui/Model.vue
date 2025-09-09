@@ -1,5 +1,4 @@
-<template>
- 
+<template> 
 <div 
 class="models p-4 border rounded w-64 transition-opacity  bg-white"
  :class="{ 'opacity-50 pointer-events-none': !hasBrand }"
