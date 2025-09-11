@@ -33,7 +33,7 @@
       </div>
       </div>
 
-      <div class="flex justify-center mt-4 gap-2">
+      <div v-if="filteredProducts.length > 0" class="flex justify-center mt-4 gap-2" >
         <button
           @click="changePage(currentPage - 1)"
           :disabled="currentPage === 1"
