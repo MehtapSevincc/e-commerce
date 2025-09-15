@@ -43,7 +43,8 @@ export const useCartStore = defineStore("cart", () => {
     decreaseQuantity,
     clearCart,
     totalItems,
-    totalPrice, 
+    totalPrice,
+  
   };
 },  {
 persist:true,

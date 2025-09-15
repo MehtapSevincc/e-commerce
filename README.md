@@ -22,3 +22,19 @@ Bu proje; Vue 3, composition API,Pinia ve Vue Router kullanılarak geliştirilmi
 - Vue Router
 - Tailwind CSS
 - Font Awesome
+
+
+# 🔗Kurulum 
+
+- Github üzerindeki bu projeyi kendi bilgisayarınıza kopyalayın.
+git clone https://github.com/MehtapSevincc/e-commerce.git
+
+- Proje dizinine girin.
+cd e-commerce 
+
+- Projede kullanılan bağımlılıkları yükleyin.
+npm install
+Not :Bilgisayarınızda Node.js kurulu değilse yükleyin.
+
+- Projeyi tarayıcıda görüntüleyin.
+http://localhost:5176/
