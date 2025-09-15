@@ -27,7 +27,8 @@
         @click.stop.prevent="addToCart"
         class="mt-4 px-4 py-2 bg-stone-800 text-white rounded hover:bg-stone-700 transition"
       >
-        Add Cart
+        Add Cart   
+                       
       </button>
     </Card>
   </router-link>

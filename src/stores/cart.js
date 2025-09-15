@@ -36,14 +36,14 @@ export const useCartStore = defineStore("cart", () => {
     items.value.reduce((sum, item) => sum + item.quantity * item.numPrice, 0)
   );
 
-  return {
+  return {     
     items,
     addToCart,
     removeFromCart,
     decreaseQuantity,
     clearCart,
     totalItems,
-    totalPrice,
+    totalPrice, 
   };
 },  {
 persist:true,

@@ -83,6 +83,7 @@ import { useCartStore } from "../stores/cart";
 import Header from "../components/layout/Header.vue";
 import Favorites from "../components/ui/Favorites.vue";
 
+
 const cartStore = useCartStore();
 const cartItems = computed(() => cartStore.items);
 const totalPrice = computed(() => {

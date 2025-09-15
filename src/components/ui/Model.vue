@@ -64,7 +64,7 @@ const search = ref("");
 const hasBrand = computed(() => props.selectedBrands.length > 0);
 
 const availableModels = computed(() => {
-  if (!hasBrand.value) return [];
+  if (!hasBrand.value) return [];            
   const modelsSet = new Set();
 
   props.allProducts.forEach((product) => {
@@ -84,16 +84,16 @@ const initialModels = Array.isArray(props.selectedModels)
   ? [...props.selectedModels]
   : props.selectedModels
   ? [props.selectedModels]
-  : [];
+  : [];                              
 
-const localSelectedModels = ref(initialModels);
+const localSelectedModels = ref(initialModels);  
 
 watch(
   () => props.selectedModels,
   (newVal) => {
     if (Array.isArray(newVal)) {
       localSelectedModels.value = [...newVal];
-    } else if (newVal != null) {
+    } else if (newVal != null) {                  
       localSelectedModels.value = [newVal];
     } else {
       localSelectedModels.value = [];
@@ -109,3 +109,4 @@ watch(localSelectedModels, (newVal, oldVal) => {
 });
 
 </script>
+

@@ -20,14 +20,14 @@ export const useFavoritesStore = defineStore("favorites", {
     toggleFavorite(product) {
       const exists = this.favorites.find((p) => p.id === product.id);
       if (exists) {
-        this.removeFromFavorites(product.id);
+        this.removeFromFavorites(product.id);    
       } else {
         this.addToFavorites(product);
       }
     },
 
     isFavorite(productId) {
-      return this.favorites.some((p) => p.id === productId);
+      return this.favorites.some((p) => p.id === productId);  
     },
   },
   persist:true,

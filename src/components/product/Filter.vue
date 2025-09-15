@@ -48,4 +48,4 @@ const localSortOption = ref("");
 watch(localSortOption, (newVal) => {
   emit("update:sort", newVal);
 });
-</script>
+</script>                           
