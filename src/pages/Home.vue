@@ -127,9 +127,9 @@ function handleBrandFilter(val) {
   selectedBrands.value = val;
 }
 
-onMounted(async () => {
-  const data = await fetchProducts();
-  const combined = [...data, ...fakeDatas].map((product) => ({
+onMounted(async () => {   
+  const data = await fetchProducts(); 
+  const combined = [...data, ...fakeDatas].map((product) => ({   
     ...product,
     numPrice: parseFloat(product.price) || product.numPrice || 0,
   }));
