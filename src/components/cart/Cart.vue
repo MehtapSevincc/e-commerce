@@ -44,10 +44,49 @@
     </div>
 
 
+
+
+
+<div class="mt-4 border-t pt-4 text-sm space-y-2">
+  <div class="flex justify-between">
+    <span>Subtotal:</span>
+    <span>{{ cart.totalPrice.toFixed(2) }}₺</span>
+  </div>
+
+  <div class="flex justify-between" v-if="cart.discount> 0">
+    <span>Discount:</span>
+    <span class="text-green-600">-{{cart.discount.toFixed(2) }}₺</span>
+  </div>
+
+  <div class="flex justify-between" v-if="cart.items.length >0">
+    <span>Shipping:</span>
+    <span>{{ (cart.items.length >0 ?cart.shippingFee:0).toFixed(2) }}₺</span>
+  </div>
+
+  <div class="flex justify-between font-semibold text-lg">
+    <span>Total:</span>
+    <span>{{ cart.finalTotal.toFixed(2) }}₺</span>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
   </div> 
 </template>
 <script setup>
-import { useCartStore } from "../stores/cart";
+import { useCartStore } from "../../stores/cart";
+
 const cart = useCartStore();
+
 
 </script>

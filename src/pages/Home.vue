@@ -77,7 +77,7 @@ import Filter from "../components/product/Filter.vue";
 import Brands from "../components/product/Brands.vue";
 import Model from "../components/ui/Model.vue";
 import { fakeDatas } from "../data/data";
-import Cart from "../styles/Cart.vue";
+import Cart from "../components/cart/Cart.vue";
 import Checkout from "../components/cart/Checkout.vue";
 import { useCartStore } from "../stores/cart";
 import Header from "../components/layout/Header.vue";

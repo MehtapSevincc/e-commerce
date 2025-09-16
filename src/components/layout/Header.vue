@@ -4,7 +4,7 @@
     <SearchBar v-model="searchQuery" />
     <h2>
       <span class="bg-stone-800 px-2 py-0.5 rounded text-sm font-semibold mr-6">
-        {{ formattedTotalPrice }}₺
+        {{ formattedFinalTotal }}₺
       </span>
       Mehtap Sevinç
     </h2>
@@ -13,15 +13,15 @@
 <script setup>
 import { ref, watch, computed } from "vue";
 import SearchBar from "../ui/SearchBar.vue";
-const props = defineProps({
-  modelValue: String,
-  totalPrice: {
-    type: Number,
-    default: 0,
-  },
-});
+import { useCartStore } from "../../stores/cart";
+const cart = useCartStore();
+
 const emit = defineEmits(["update:modelValue"]);
-const searchQuery = ref(props.modelValue || "");
+const searchQuery = ref("");
+const props =defineProps({
+  modelValue:String,
+});
+
 watch(
   () => props.modelValue,
   (val) => {
@@ -32,7 +32,7 @@ watch(
 watch(searchQuery, (val) => {
   emit("update:modelValue", val);
 });
-const formattedTotalPrice = computed(() => {
-  return props.totalPrice.toFixed(2);
+const formattedFinalTotal = computed(() => {
+  return cart.finalTotal.toFixed(2);
 });
 </script>
